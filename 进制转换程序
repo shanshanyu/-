@@ -1,0 +1,49 @@
+#include <stdio.h>
+#include <string.h>
+#pragma warning (disable:4996)
+//先把16进制的字符转换成10进制
+//然后10进制转换成2进制
+
+void to_binary(int n) {  //10转2
+	if (n > 2)to_binary(n / 2);
+	putchar(n % 2 + '0');
+	
+}
+
+void to_decimal(char *s) {
+	if (s == NULL) return;
+	int tmp;
+	while (*s) {
+		if ('0' <= *s&&*s <= '9') {
+			tmp = *s - '0';
+			to_binary(tmp);
+			s++;
+		}
+		else if ('A' <= *s&&*s <= 'Z') {
+			tmp = *s - 'A' + 10;
+			to_binary(tmp);
+			s++;
+		}
+		else if ('a' <= *s && *s <= 'z') {
+			tmp = *s - 'a' + 10;
+			to_binary(tmp);
+			s++;
+		}
+		else {
+			printf("input err\n");
+			return;
+		}
+	}
+}
+
+int main() {
+	char s[10];
+	printf("input hex string:");
+	scanf("%s", s);
+	strcpy(s, s + 2);
+	to_decimal(s);
+	system("pause");
+}
+
+
+注：这个程序有缺陷，把转换的结果直接打印出来，而不是保存在某个数组中
