@@ -1,0 +1,40 @@
+#include <stdio.h>
+
+#pragma warning (disable:4996)
+#define M 32
+
+int trans(int m, int d, char *buf) {
+	if (buf == NULL) return -1;
+	char *table = "0123456789ABCDEF";
+	int i = M - 1;
+	buf[i] = '\0';
+	if (d < 2 || d>16) return -2; 
+	do {
+		buf[--i] = table[m%d];
+		m /= d;
+	} while (m);
+	strcpy(buf, buf + i);
+	//int j = 0;
+	/*while (buf[i]) {
+		buf[j++] = buf[i++];
+	}*/
+	/*for (;buf[i];i++, j++)buf[j] = buf[i];
+	buf[j] = '\0';*/
+	return 0;
+
+}
+
+int main() {
+	char buf[M];
+	int m, d;
+	printf("input the number you want trans:");
+	scanf("%d", &m);
+	printf("input the number of the radix:");
+	scanf("%d", &d);
+	int ret=trans(m, d, buf);
+	if (ret != 0) {
+		printf("trans err\n");
+	}
+	puts(buf);
+	system("pause");
+}
